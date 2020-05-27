@@ -3,6 +3,21 @@ import './App.css';
 // import Radium, {StyleRoot} from 'radium';
 import Person
 from './Person/Person.js';
+import styled from 'styled-components';
+
+const StyledButton = styled.button`
+background-color: ${props => props.alt ? 'red' : 'green'};
+      font: inherit;
+      border: 1px solid blue;
+      padding: 8px;
+      cursor: pointer;
+      color: white;
+      
+      &:hover {
+        background-color: ${props => props.alt ? 'salmon' : 'green'};
+        color: black;
+    }
+`;
 
 
 
@@ -50,19 +65,19 @@ class App extends React.Component {//state can only access in class based compon
   }
 
   render() {
-    const style = {
-      backgroundColor: 'green',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      color: 'white',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
+    // const style = {
+    //   backgroundColor: 'green',
+    //   font: 'inherit',
+    //   border: '1px solid blue',
+    //   padding: '8px',
+    //   cursor: 'pointer',
+    //   color: 'white',
+    //   ':hover': {
+    //     backgroundColor: 'lightgreen',
+    //     color: 'black'
+    //   }
 
-    };
+    // };
 
     let persons = null;
 
@@ -82,11 +97,11 @@ class App extends React.Component {//state can only access in class based compon
           </div>
 
       );
-      style.backgroundColor  = "red";
-      style[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'black'
-      }
+      // style.backgroundColor  = "red";
+      // style[':hover'] = {
+      //   backgroundColor: 'salmon',
+      //   color: 'black'
+      // }
 
     }
 //add classes dynamically////
@@ -103,13 +118,12 @@ class App extends React.Component {//state can only access in class based compon
           <header className="App-header">
             <h1>Hello' I am React</h1>
             <p className={classes.join(' ')}>This really works</p>
-            <button 
-            style={style}
-            onClick={this.togglePersonHandler}>Toggle People</button>
+            <StyledButton alt={this.state.showPerson} onClick= {this.togglePersonHandler}>
+            Toggle People
+            </StyledButton>
             {persons}
           </header>
         </div>
-       
     );
   }
   
