@@ -1,23 +1,23 @@
 import React from 'react';
-import './App.css';
+import classes from  './App.module.css';
 // import Radium, {StyleRoot} from 'radium';
 import Person
 from './Person/Person.js';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
-const StyledButton = styled.button`
-background-color: ${props => props.alt ? 'red' : 'green'};
-      font: inherit;
-      border: 1px solid blue;
-      padding: 8px;
-      cursor: pointer;
-      color: white;
+// const StyledButton = styled.button`
+// background-color: ${props => props.alt ? 'red' : 'green'};
+//       font: inherit;
+//       border: 1px solid blue;
+//       padding: 8px;
+//       cursor: pointer;
+//       color: white;
       
-      &:hover {
-        background-color: ${props => props.alt ? 'salmon' : 'green'};
-        color: black;
-    }
-`;
+//       &:hover {
+//         background-color: ${props => props.alt ? 'salmon' : 'green'};
+//         color: black;
+//     }
+// `;
 
 
 
@@ -41,7 +41,7 @@ class App extends React.Component {//state can only access in class based compon
       ...this.state.persons[personIndex]
     };
 
-    person.name = event.target.value;
+    person.name = event.input.value;
 
     const persons = [...this.state.persons]
     persons[personIndex] = person;
@@ -65,6 +65,7 @@ class App extends React.Component {//state can only access in class based compon
   }
 
   render() {
+
     // const style = {
     //   backgroundColor: 'green',
     //   font: 'inherit',
@@ -80,6 +81,7 @@ class App extends React.Component {//state can only access in class based compon
     // };
 
     let persons = null;
+    let btnClass = [classes.Button];
 
     if(this.state.showPerson) {
       persons =  (
@@ -102,25 +104,25 @@ class App extends React.Component {//state can only access in class based compon
       //   backgroundColor: 'salmon',
       //   color: 'black'
       // }
-
+      btnClass.push(classes.Red)
     }
 //add classes dynamically////
-    const classes = []
+    const assignClasses = []
     if(this.state.persons.length <= 2) {
-      classes.push('red') //classes = ['red']
+      assignClasses.push(classes.red) //classes = ['red']
     }
   if(this.state.persons.length <= 1) {
-    classes.push('bold') //classes = ['red', 'bold']
+    assignClasses.push(classes.bold) //classes = ['red', 'bold']
   }
     return(
       
-        <div className="App">
+        <div className={classes.App}>
           <header className="App-header">
             <h1>Hello' I am React</h1>
-            <p className={classes.join(' ')}>This really works</p>
-            <StyledButton alt={this.state.showPerson} onClick= {this.togglePersonHandler}>
+            <p className={assignClasses.join(' ')}>This really works</p>
+            <button className={btnClass.join(' ')} onClick= {this.togglePersonHandler}>
             Toggle People
-            </StyledButton>
+            </button>
             {persons}
           </header>
         </div>
