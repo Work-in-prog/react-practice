@@ -1,7 +1,8 @@
 import React from 'react';
 import classes from  './App.module.css';
 // import Radium, {StyleRoot} from 'radium';
-import NewPerson from '../components/NewPerson'
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 // import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 // import styled from 'styled-components';
 
@@ -81,44 +82,29 @@ class App extends React.Component {//state can only access in class based compon
     // };
 
     let persons = null;
-    let btnClass = [classes.Button];
 
     if(this.state.showPerson) {
-      persons =  (
-          <div>
-            <NewPerson 
+      persons =  <Persons 
             persons = {this.state.persons}
             clicked = {this.deletePersonHandler}
-            changed = {this.nameChangeHandler} />       
-          </div>
-
-      );
+            changed = {this.nameChangeHandler} />;
       // style.backgroundColor  = "red";
       // style[':hover'] = {
       //   backgroundColor: 'salmon',
       //   color: 'black'
       // }
-      btnClass.push(classes.Red)
+      
     }
 //add classes dynamically////
-    const assignClasses = []
-    if(this.state.persons.length <= 2) {
-      assignClasses.push(classes.red) //classes = ['red']
-    }
-  if(this.state.persons.length <= 1) {
-    assignClasses.push(classes.bold) //classes = ['red', 'bold']
-  }
+   
     return(
       
         <div className={classes.App}>
-          <header className="App-header">
-            <h1>Hello' I am React</h1>
-            <p className={assignClasses.join(' ')}>This really works</p>
-            <button className={btnClass.join(' ')} onClick= {this.togglePersonHandler}>
-            Toggle People
-            </button>
-            {persons}
-          </header>
+        <Cockpit 
+            showPerson={this.state.showPerson}
+            persons={this.state.persons}
+            clicked={this.togglePersonHandler} />
+          {persons}
         </div>
     );
   }
