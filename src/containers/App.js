@@ -1,8 +1,8 @@
 import React from 'react';
 import classes from  './App.module.css';
 // import Radium, {StyleRoot} from 'radium';
-import Person
-from './Person/Person.js';
+import NewPerson from '../components/NewPerson'
+// import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 // import styled from 'styled-components';
 
 // const StyledButton = styled.button`
@@ -41,7 +41,7 @@ class App extends React.Component {//state can only access in class based compon
       ...this.state.persons[personIndex]
     };
 
-    person.name = event.input.value;
+    person.name = event.target.value;
 
     const persons = [...this.state.persons]
     persons[personIndex] = person;
@@ -86,16 +86,10 @@ class App extends React.Component {//state can only access in class based compon
     if(this.state.showPerson) {
       persons =  (
           <div>
-            {this.state.persons.map((person, index) => {
-              return(
-                <Person 
-                click = {() => this.deletePersonHandler(index)}
-                name= {person.name}
-                age={person.age} 
-                key={person.id}
-                changed= {(event) =>this.nameChangeHandler(event, person.id)}/>
-              )
-            })}
+            <NewPerson 
+            persons = {this.state.persons}
+            clicked = {this.deletePersonHandler}
+            changed = {this.nameChangeHandler} />       
           </div>
 
       );
