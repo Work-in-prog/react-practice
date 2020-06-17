@@ -23,14 +23,43 @@ import Cockpit from '../components/Cockpit/Cockpit';
 
 
 class App extends React.Component {//state can only access in class based components
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constructor');
+  }
+
+  
   state = {
     persons: [
       {id: "eyhw", name: 'Khoury', age: 28},
       {id: "eycf", name: 'Ahjah', age: 29},
       {id: "eahf", name: "K3", age: 1}
     ], 
-    showPerson: false
+    showPerson: false,
+    showCockpit: true
   }
+
+  static  getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props)
+    return state;
+  }
+
+
+
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount')
+  }
+
+  componentDidUpdate() {
+    console.log('[App.js] componentDidMount');
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[App.js] shouldComponentUpdate')
+    return true;
+  }
+
 
   
   nameChangeHandler = (event, id) => {
@@ -66,6 +95,7 @@ class App extends React.Component {//state can only access in class based compon
   }
 
   render() {
+    console.log('[App.js] render')
 
     // const style = {
     //   backgroundColor: 'green',
@@ -100,10 +130,19 @@ class App extends React.Component {//state can only access in class based compon
     return(
       
         <div className={classes.App}>
-        <Cockpit 
+          <button onClick={() => {this.setState({showCockpit: false})
+          }}
+        >
+          Remove Cockpit
+        </button>
+        {this.state.showCockpit ? ( <Cockpit 
+            title={this.props.appTitle}
             showPerson={this.state.showPerson}
+            personsLength={this.state.persons.length}
             persons={this.state.persons}
-            clicked={this.togglePersonHandler} />
+            clicked={this.togglePersonHandler} 
+            /> 
+          ) : null}
           {persons}
         </div>
     );
